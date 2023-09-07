@@ -18,16 +18,16 @@ class UserSeeder extends Seeder
     {
         // kepala dinsa
         $kedin = User::create([
-            'name' => 'alvien nur',
-            'email' => '123@gmail.com',
-            'password' => Hash::make('123@gmail.com'),
+            'name' => 'kepaladinas',
+            'email' => 'kepaladinas@gmail.com',
+            'password' => Hash::make('kepaladinas@gmail.com'),
         ]);
 
         // kepala bidang
         $kepbid = User::create([
-            'name' => 'jaka nur',
-            'email' => '222@gmail.com',
-            'password' => Hash::make('222@gmail.com'),
+            'name' => 'pertanian',
+            'email' => 'dinastani@gmail.com',
+            'password' => Hash::make('dinastani@gmail.com'),
             'position' => 'kepala bidang',
             'superior_id' => $kedin->id
         ]);
@@ -35,26 +35,26 @@ class UserSeeder extends Seeder
         // pegawai 
         User::create([
             'name' => 'jaka nur',
-            'email' => '333@gmail.com',
-            'password' => Hash::make('333@gmail.com'),
+            'email' => 'dinashutan@gmail.com',
+            'password' => Hash::make('dinashutan@gmail.com'),
             'position' => 'pegawai',
             'superior_id' => $kepbid->id
         ]);
 
         // kepala bidang
         $kepbid2 = User::create([
-            'name' => 'andri nur',
-            'email' => '444@gmail.com',
-            'password' => Hash::make('444@gmail.com'),
+            'name' => 'Perhutanan',
+            'email' => 'stafftani@gmail.com',
+            'password' => Hash::make('stafftani@gmail.com'),
             'position' => 'kepala bidang',
             'superior_id' => $kedin->id
         ]);
 
         // pegawai 
         User::create([
-            'name' => 'alman nur',
-            'email' => '555@gmail.com',
-            'password' => Hash::make('555@gmail.com'),
+            'name' => 'Petani',
+            'email' => 'staffhutan@gmail.com',
+            'password' => Hash::make('staffhutan@gmail.com'),
             'position' => 'pegawai',
             'superior_id' => $kepbid2->id
         ]);
