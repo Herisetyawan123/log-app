@@ -117,7 +117,13 @@ class MylogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       
+       $log = Log::find($id);
+
+       $log->update([
+        'body' => $request->body,
+       ]);
+
+       return redirect()->back();
     }
 
     /**
@@ -125,6 +131,7 @@ class MylogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::find($id)->delete();
+        return redirect()->back();
     }
 }

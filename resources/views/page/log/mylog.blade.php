@@ -8,7 +8,6 @@
           <a href="/mylog/{{ $item[0]->format('Y-m-d') }}" class="text-decoration-none">
           <div class="card">
             <div class="card-body">
-              <h5 class="text-success">sudah semua</h5>
               <h4 class="card-title">
                 Log Harian (Mingguan)
               </h4>

@@ -29,7 +29,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('mylog')->group(function () {
     Route::get('/', [MylogController::class, 'index']);
     Route::get('/{id}', [MylogController::class, 'show']);
+    Route::delete('/{id}', [MylogController::class, 'destroy']);
     Route::post('/', [MylogController::class, 'store']);
+    Route::post('/{id}', [MylogController::class, 'update']);
 });
 // Route::resource('/mylog', MylogController::class);
 

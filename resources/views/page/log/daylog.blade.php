@@ -34,20 +34,27 @@
                 </div>
                 <div class="col-md-4">
                   @if ($item[1])
-                    <button class="btn btn-behance btn-sm" data-toggle="modal" data-target="#view{{ $item[0]->format('Ymd') }}">view</button>
+                    @if ($item[2]->status != 'disetujui')
+                      <form method="post" action="/mylog/{{ $item[2]->id }}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger btn-sm">delete</button>
+                      </form>
+                    @endif
+                    <button class="btn btn-behance btn-sm mt-2" data-toggle="modal" data-target="#view{{ $item[0]->format('Ymd') }}">view</button>
                     <div class="modal fade" id="view{{ $item[0]->format('Ymd') }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Log</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Lihat Log</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="/mylog">
+                            <form method="POST" action="/mylog/{{ $item[2]->id }}">
                               @csrf
-                              <input type="hidden" name="date" value="{{ $item[0]->format('Y-m-d') }}">
+                             
                               <div class="form-group">
                                 <label for="body">body</label>
                                 <textarea name="body" class="form-control" cols="30" rows="10">{{ $item[2]->body }}</textarea>
