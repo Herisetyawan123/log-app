@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StafflogController extends Controller
 {
@@ -11,7 +15,8 @@ class StafflogController extends Controller
      */
     public function index()
     {
-        return view('page.stafflog.index');
+        $staff = User::with('bawahan')->where('id', Auth::user()->id)->first()->bawahan;
+        return view('page.stafflog.index', ['staff' => $staff]);
     }
 
     /**
@@ -35,7 +40,16 @@ class StafflogController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $user = DB::table('users')->where('id', $id)->where('superior_id', Auth::user()->id)->get();
+    
+
+        if($user->count() == 0){
+            return redirect('/staff');
+        }
+
+        $logs = Log::where('user_id', $id)->orderBy('date', 'DESC')->get();
+        return view('page.stafflog.list', ['logs' => $logs, 'name' => $user[0]->name]);
     }
 
     /**
@@ -51,7 +65,13 @@ class StafflogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $log = Log::find($id);
+        // dd($log);
+        $log->update([
+            'status' => $request->status
+        ]);
+
+        return redirect()->back();
     }
 
     /**

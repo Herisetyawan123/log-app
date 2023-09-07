@@ -18,29 +18,30 @@
                     Nama staff
                   </th>
                   <th>
-                    isi
+                    posisi
                   </th>
                   <th>
-                    status
+                    log harian
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    Herman Beck
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-primary">lihat</button>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-warning">Pending</button>
-                  </td>
-                </tr>
-               
+                @foreach ($staff as $item)                    
+                  <tr>
+                    <td>
+                      1
+                    </td>
+                    <td>
+                      {{ $item->name }}
+                    </td>
+                    <td>
+                      {{ $item->position }}
+                    </td>
+                    <td>
+                      <a class="btn btn-sm btn-primary" href="/staff/{{ $item->id }}">lihat</a>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

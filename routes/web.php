@@ -26,5 +26,17 @@ Route::get('/jabatan', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/mylog', MylogController::class)->only(['index', 'create', 'show']);
-Route::resource('/staff', StafflogController::class)->only(['index', 'create', 'show']);
+Route::prefix('mylog')->group(function () {
+    Route::get('/', [MylogController::class, 'index']);
+    Route::get('/{id}', [MylogController::class, 'show']);
+    Route::post('/', [MylogController::class, 'store']);
+});
+// Route::resource('/mylog', MylogController::class);
+
+
+Route::prefix('staff')->group(function () {
+    Route::get('/', [StafflogController::class, 'index']);
+    Route::get('/{id}', [StafflogController::class, 'show']);
+    Route::post('/log/{id}', [StafflogController::class, 'update']);
+});
+// Route::resource('/staff', StafflogController::class)->only(['index', 'create', 'show']);

@@ -22,14 +22,7 @@
           </ul>
         </div>
       </li>
-      @if (\App\Models\User::with('bawahan')->where('id', Auth::user()->id)->first()->bawahan->count() != 0)          
-        <li class="nav-item">
-          <a class="nav-link" href="/home">
-            <i class="icon-grid menu-icon"></i>
-            <span class="menu-title">Pegawai</span>
-          </a>
-        </li>
-      @endif
+
      
     </ul>
   </nav>

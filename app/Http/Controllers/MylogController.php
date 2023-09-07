@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MylogController extends Controller
 {
@@ -45,7 +48,18 @@ class MylogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'body' => ['required']
+        ]);
+
+
+        Log::create([
+            'body' => $request->body,
+            'user_id' => Auth::user()->id,
+            'date' => $request->date
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -53,15 +67,41 @@ class MylogController extends Controller
      */
     public function show(string $id)
     {
+        $logs = Log::where('user_id', Auth::user()->id)->orderBy('date', 'DESC')->get();
         $tanggalAwal = new DateTime($id);
-        $data = [clone $tanggalAwal];
-        for ($i=1; $i <= 4 ; $i++) { 
-            $next = clone $tanggalAwal->modify('next day');
-            array_push($data, $next);
-            
+        
+        $data = [];
+        
+        for ($i=0; $i <= 4 ; $i++) { 
+            $next = clone $tanggalAwal;
+            $status = false;
+            $harian = [];
+            $next->modify('+'.($i).' day');
+            $harian = [$next];
+            if($logs->count() != 0){
+                foreach ($logs as $item) {
+                    $date = new DateTime($item->date);
+                    if($date == $next){
+                        $status = true;
+                        array_push($harian, $status);
+                        array_push($harian, $item);
+                    }
+                 
+                }
+    
+                if(!$status){
+                    array_push($harian, $status);
+                    array_push($harian, $item);
+                }
+            }else{
+                array_push($harian, false);
+                array_push($harian, 0);
+            }
+            // dd($harian);
+            array_push($data, $harian);
         }
-        // dd($data);
-        return view('page.log.daylog', ['days' => $data]);
+
+        return view('page.log.daylog', ['days' => array_reverse($data)]);
     }
 
     /**
@@ -77,7 +117,7 @@ class MylogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       
     }
 
     /**
