@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MylogController;
+use App\Http\Controllers\StafflogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +26,5 @@ Route::get('/jabatan', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/mylog', MylogController::class)->only(['index', 'create', 'show']);
+Route::resource('/staff', StafflogController::class)->only(['index', 'create', 'show']);

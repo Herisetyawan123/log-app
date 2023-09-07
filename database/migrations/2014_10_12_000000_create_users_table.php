@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('superior_id')->nullable();
+            $table->enum('position', ['kepala dinas', 'kepala bidang', 'pegawai'])->default('kepala dinas');
             $table->rememberToken();
             $table->timestamps();
         });

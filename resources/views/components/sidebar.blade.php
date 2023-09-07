@@ -2,7 +2,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/home">
           <i class="icon-grid menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
@@ -15,11 +15,21 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">My Log</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Staff Log</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/mylog">My Log</a></li>
+            @if (\App\Models\User::with('bawahan')->where('id', Auth::user()->id)->first()->bawahan->count() != 0)
+              <li class="nav-item"> <a class="nav-link" href="/staff">Staff Log</a></li>
+            @endif
           </ul>
         </div>
       </li>
+      @if (\App\Models\User::with('bawahan')->where('id', Auth::user()->id)->first()->bawahan->count() != 0)          
+        <li class="nav-item">
+          <a class="nav-link" href="/home">
+            <i class="icon-grid menu-icon"></i>
+            <span class="menu-title">Pegawai</span>
+          </a>
+        </li>
+      @endif
      
     </ul>
   </nav>

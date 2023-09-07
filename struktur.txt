@@ -1,0 +1,84 @@
+kepala desa
+	- kasun pasar
+		- rt 01
+	- kasun tegal
+		- rt 02
+
+
+user:
+- id
+- nama
+- jabatan
+- atasan
+
+contoh:
+- 1 
+- anwar
+- kepdes jabatan_id (1)
+- null
+
+- 2 
+- heri
+- kedus jabatan_id (2)
+- anwar user_id(1)
+
+- 3
+- samsudin
+- kedus jabatan _id (2)
+- anwar user_id(1)
+
+- 4
+- pesulme
+- staf jabatan_id (3)
+- heri user_id(2)
+
+- 5
+- joko
+- staf jabatan_id (3)
+- samsudin user_id (3)
+
+
+jabatan:
+- id
+- nama
+
+contoh:
+- 1
+- kepala desa
+
+- 2
+- kepala dusun
+
+- 3
+- rt
+
+
+contoh query:
+
+----- kepala desa ------
+- heri -> 4
+- joko -> 2
+
+- heri -> 4
+- slamet -> 1
+
+- perdana -> 5
+- slamet -> 6
+
+
+-------
+select id_bawahan from permision_post pp where id_atasan = 4 AND status
+join dailylog dl ON dl.id == pp
+GROUP BY id_bawahan
+  -> 
+output:
+- 2 : user
+	- daily log
+
+- 1:
+	- daily log
+
+
+----- kepala dusun -----
+- slamet -> 1
+- rendy ->3
